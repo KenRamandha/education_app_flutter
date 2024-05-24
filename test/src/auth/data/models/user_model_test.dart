@@ -29,7 +29,7 @@ void main() {
     });
 
     test('should throw an [Error] when the map is invalid', () {
-      final map = DataMap.from(tMap)..remove('userId');
+      final map = DataMap.from(tMap)..remove('uid');
 
       const call = LocalUserModel.fromMap;
 
@@ -47,8 +47,8 @@ void main() {
 
   group('copyWith', () {
     test('should return valid [LocalUserModel] with updated values', () {
-      final result = tLocalUserModel.copyWith(userId: '2');
-      expect(result.userId, '2');
+      final result = tLocalUserModel.copyWith(uid: '2');
+      expect(result.uid, '2');
     });
   });
 }

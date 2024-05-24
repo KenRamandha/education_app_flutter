@@ -9,7 +9,7 @@ import 'package:education_app/core/utils/typedef.dart';
 import 'package:education_app/src/auth/data/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 abstract class AuthRemoteDataSource {
   const AuthRemoteDataSource();
@@ -34,11 +34,11 @@ abstract class AuthRemoteDataSource {
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
-  const AuthRemoteDataSourceImpl(
-      {required FirebaseAuth authClient,
-      required FirebaseFirestore cloudStoreClient,
-      required FirebaseStorage dbClient})
-      : _authClient = authClient,
+  const AuthRemoteDataSourceImpl({
+    required FirebaseAuth authClient,
+    required FirebaseFirestore cloudStoreClient,
+    required FirebaseStorage dbClient,
+  })  : _authClient = authClient,
         _cloudStoreClient = cloudStoreClient,
         _dbClient = dbClient;
 
@@ -52,7 +52,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       await _authClient.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (e) {
       throw ServerException(
-        message: e.message ?? 'Error Occured',
+        message: e.message ?? 'Error Occurred',
         statusCode: e.code,
       );
     } catch (e, s) {
@@ -74,11 +74,12 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         email: email,
         password: password,
       );
+
       final user = result.user;
 
       if (user == null) {
         throw const ServerException(
-          message: 'Please tyr again leter',
+          message: 'Please try again later',
           statusCode: 'Unknown Error',
         );
       }
@@ -88,13 +89,14 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         return LocalUserModel.fromMap(userData.data()!);
       }
 
+      // upload the user
       await _setUserData(user, email);
 
       userData = await _getUserData(user.uid);
       return LocalUserModel.fromMap(userData.data()!);
     } on FirebaseAuthException catch (e) {
       throw ServerException(
-        message: e.message ?? 'Error Occured',
+        message: e.message ?? 'Error Occurred',
         statusCode: e.code,
       );
     } on ServerException {
@@ -125,7 +127,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       await _setUserData(_authClient.currentUser!, email);
     } on FirebaseAuthException catch (e) {
       throw ServerException(
-        message: e.message ?? 'Error Occured',
+        message: e.message ?? 'Error Occurred',
         statusCode: e.code,
       );
     } catch (e, s) {
@@ -151,11 +153,11 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
           await _authClient.currentUser?.updateDisplayName(userData as String);
           await _updateUserData({'fullName': userData});
         case UpdateUserAction.profilePic:
-          final ref = _dbClient.ref().child(
-                'profile_pic/${_authClient.currentUser?.uid}',
-              );
-          await ref.putFile(userData as File);
+          final ref = _dbClient
+              .ref()
+              .child('profile_pics/${_authClient.currentUser?.uid}');
 
+          await ref.putFile(userData as File);
           final url = await ref.getDownloadURL();
           await _authClient.currentUser?.updatePhotoURL(url);
           await _updateUserData({'profilePic': url});
@@ -163,7 +165,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
           if (_authClient.currentUser?.email == null) {
             throw const ServerException(
               message: 'User does not exist',
-              statusCode: 'Insuffic Permission',
+              statusCode: 'Insufficient Permission',
             );
           }
           final newData = jsonDecode(userData as String) as DataMap;
@@ -173,17 +175,15 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
               password: newData['oldPassword'] as String,
             ),
           );
-
           await _authClient.currentUser?.updatePassword(
             newData['newPassword'] as String,
           );
-
         case UpdateUserAction.bio:
           await _updateUserData({'bio': userData as String});
       }
     } on FirebaseException catch (e) {
       throw ServerException(
-        message: e.message ?? 'Error Occured',
+        message: e.message ?? 'Error Occurred',
         statusCode: e.code,
       );
     } catch (e, s) {
@@ -195,17 +195,17 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     }
   }
 
-  Future<DocumentSnapshot<DataMap>> _getUserData(String userId) async {
-    return _cloudStoreClient.collection('users').doc(userId).get();
+  Future<DocumentSnapshot<DataMap>> _getUserData(String uid) async {
+    return _cloudStoreClient.collection('users').doc(uid).get();
   }
 
   Future<void> _setUserData(User user, String fallbackEmail) async {
     await _cloudStoreClient.collection('users').doc(user.uid).set(
           LocalUserModel(
-            userId: user.uid,
+            uid: user.uid,
             email: user.email ?? fallbackEmail,
             fullName: user.displayName ?? '',
-            photoProfile: user.photoURL ?? '',
+            profilePic: user.photoURL ?? '',
             points: 0,
           ).toMap(),
         );

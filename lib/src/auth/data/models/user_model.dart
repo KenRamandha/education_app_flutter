@@ -3,21 +3,21 @@ import 'package:education_app/src/auth/domain/entities/user.dart';
 
 class LocalUserModel extends LocalUser {
   const LocalUserModel({
-    required super.userId,
+    required super.uid,
     required super.email,
     required super.points,
     required super.fullName,
     super.groupIds,
-    super.enrollCoursesIds,
+    super.enrolledCourseIds,
     super.following,
     super.followers,
-    super.photoProfile,
+    super.profilePic,
     super.bio,
   });
 
   const LocalUserModel.empty()
       : this(
-          userId: '',
+          uid: '',
           email: '',
           points: 0,
           fullName: '',
@@ -25,40 +25,40 @@ class LocalUserModel extends LocalUser {
 
   LocalUserModel.fromMap(DataMap map)
       : super(
-          userId: map['userId'] as String,
+          uid: map['uid'] as String,
           email: map['email'] as String,
           points: (map['points'] as num).toInt(),
           fullName: map['fullName'] as String,
-          photoProfile: map['profilePictures'] as String?,
+          profilePic: map['profilePic'] as String?,
           bio: map['bio'] as String?,
           groupIds: (map['groupIds'] as List<dynamic>).cast<String>(),
-          enrollCoursesIds:
-              (map['enrollCoursesIds'] as List<dynamic>).cast<String>(),
+          enrolledCourseIds:
+              (map['enrolledCourseIds'] as List<dynamic>).cast<String>(),
           following: (map['following'] as List<dynamic>).cast<String>(),
           followers: (map['followers'] as List<dynamic>).cast<String>(),
         );
 
-  LocalUser copyWith({
-    String? userId,
+  LocalUserModel copyWith({
+    String? uid,
     String? email,
-    String? photoProfile,
+    String? profilePic,
     String? bio,
     int? points,
     String? fullName,
     List<String>? groupIds,
-    List<String>? enrollCoursesIds,
+    List<String>? enrolledCourseIds,
     List<String>? following,
     List<String>? followers,
   }) {
-    return LocalUser(
-      userId: userId ?? this.userId,
+    return LocalUserModel(
+      uid: uid ?? this.uid,
       email: email ?? this.email,
-      photoProfile: photoProfile ?? this.photoProfile,
+      profilePic: profilePic ?? this.profilePic,
       bio: bio ?? this.bio,
       points: points ?? this.points,
       fullName: fullName ?? this.fullName,
       groupIds: groupIds ?? this.groupIds,
-      enrollCoursesIds: enrollCoursesIds ?? this.enrollCoursesIds,
+      enrolledCourseIds: enrolledCourseIds ?? this.enrolledCourseIds,
       following: following ?? this.following,
       followers: followers ?? this.followers,
     );
@@ -66,14 +66,14 @@ class LocalUserModel extends LocalUser {
 
   DataMap toMap() {
     return {
-      'userId': userId,
+      'uid': uid,
       'email': email,
-      'photoProfile': photoProfile,
+      'profilePic': profilePic,
       'bio': bio,
       'points': points,
       'fullName': fullName,
       'groupIds': groupIds,
-      'enrolledCourseIds': enrollCoursesIds,
+      'enrolledCourseIds': enrolledCourseIds,
       'following': following,
       'followers': followers,
     };
