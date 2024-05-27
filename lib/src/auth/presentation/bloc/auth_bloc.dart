@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
@@ -10,6 +11,7 @@ import 'package:education_app/src/auth/domain/usecases/update_user.dart';
 import 'package:equatable/equatable.dart';
 
 part 'auth_event.dart';
+
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {

@@ -1,6 +1,6 @@
 part of 'auth_bloc.dart';
 
-sealed class AuthEvent extends Equatable {
+abstract class AuthEvent extends Equatable {
   const AuthEvent();
 }
 
@@ -47,8 +47,8 @@ class UpdateUserEvent extends AuthEvent {
     required this.userData,
   }) : assert(
           userData is String || userData is File,
-          '[userData] must be either a String or a File, but was'
-          '${userData.runtimeType}',
+          '[userData] must be either a String or a File, but '
+          'was ${userData.runtimeType}',
         );
 
   final UpdateUserAction action;

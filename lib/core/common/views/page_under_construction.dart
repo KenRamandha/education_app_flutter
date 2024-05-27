@@ -9,6 +9,7 @@ class PageUnderConstruction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: GradientBackgound(
         image: MediaRes.pageUnderConstruction,
         child: Center(
