@@ -20,7 +20,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
               fullName: user.displayName ?? '',
             );
             context.userProvider.initUser(localUser);
-            // return const Dashboard();
+            return const Dashboard();
           }
           return BlocProvider(
             create: (_) => sl<AuthBloc>(),
