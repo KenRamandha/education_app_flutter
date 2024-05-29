@@ -60,25 +60,25 @@ void main() {
   group('getCourse', () {
     test(
       'should return [List<Course>] when call to remote source is successful',
-          () async {
-        when(() => remoteDataSrc.getCourse()).thenAnswer(
-              (_) async => [tCourse],
+      () async {
+        when(() => remoteDataSrc.getCourses()).thenAnswer(
+          (_) async => [tCourse],
         );
 
         final result = await repoImpl.getCourse();
 
         expect(result, isA<Right<dynamic, List<Course>>>());
 
-        verify(() => remoteDataSrc.getCourse()).called(1);
+        verify(() => remoteDataSrc.getCourses()).called(1);
         verifyNoMoreInteractions(remoteDataSrc);
       },
     );
 
     test(
       'should return [ServerFailure] when call to remote source is '
-          'unsuccessful',
-          () async {
-        when(() => remoteDataSrc.getCourse()).thenThrow(tException);
+      'unsuccessful',
+      () async {
+        when(() => remoteDataSrc.getCourses()).thenThrow(tException);
 
         final result = await repoImpl.getCourse();
 
@@ -87,11 +87,9 @@ void main() {
           Left<Failure, dynamic>(ServerFailure.fromException(tException)),
         );
 
-        verify(() => remoteDataSrc.getCourse()).called(1);
+        verify(() => remoteDataSrc.getCourses()).called(1);
         verifyNoMoreInteractions(remoteDataSrc);
       },
     );
   });
 }
-
-
