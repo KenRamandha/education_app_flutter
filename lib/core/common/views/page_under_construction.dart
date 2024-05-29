@@ -10,6 +10,7 @@ class PageUnderConstruction extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(),
       body: GradientBackgound(
         image: MediaRes.pageUnderConstruction,
         child: Center(

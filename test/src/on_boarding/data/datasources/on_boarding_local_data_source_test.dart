@@ -35,7 +35,8 @@ void main() {
     });
 
     test(
-      'should throw [SharedPrefrencess] when there is an error caching the data',
+      'should throw [SharedPrefrencess] when there is an '
+      'error caching the data',
       () async {
         when(
           () => prefs.setBool(
@@ -60,7 +61,8 @@ void main() {
 
   group('checkIfUserIsFirstTimer', () {
     test(
-      'should call [SharedPrefrencess] to check if user is first timer and return the right response from storage when data exist',
+      'should call [SharedPrefrencess] to check if user is first timer and '
+      'return the right response from storage when data exist',
       () async {
         when(
           () => prefs.getBool(any()),
@@ -91,7 +93,8 @@ void main() {
     });
 
     test(
-        'should thorws a [CacheException] when there is an error retriving the data',
+        'should thorws a [CacheException] when there is an '
+        'error retriving the data',
         () async {
       when(() => prefs.getBool(any())).thenThrow(Exception());
 

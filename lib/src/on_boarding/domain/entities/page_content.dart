@@ -1,3 +1,5 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'package:education_app/core/res/media_res.dart';
 import 'package:equatable/equatable.dart';
 

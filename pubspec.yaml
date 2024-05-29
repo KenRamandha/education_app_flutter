@@ -14,7 +14,6 @@ dependencies:
   equatable: ^2.0.5
   file_picker: ^8.0.3
   firebase_auth: ^4.19.6
-  firebase_auth_mocks: ^0.13.0
   firebase_core: ^2.31.1
   firebase_storage: ^11.7.6
   firebase_ui_auth: ^1.7.0
@@ -42,6 +41,7 @@ dependencies:
 dev_dependencies:
   bloc_test: ^9.1.7
   fake_cloud_firestore: ^2.5.1
+  firebase_auth_mocks: ^0.13.0
   firebase_storage_mocks: ^0.6.1
   flutter_lints: ^3.0.0
   flutter_test:
