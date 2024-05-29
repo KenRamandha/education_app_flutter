@@ -35,13 +35,10 @@ class ProfileBody extends StatelessWidget {
                 Expanded(
                   child: UserInfoCard(
                     infoThemeColor: Colours.languageTileColour,
-                    infoIcon: Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Image.asset(
-                        MediaRes.scoreboard,
-                        height: 24,
-                        width: 24,
-                      ),
+                    infoIcon: Image.asset(
+                      MediaRes.scoreboard,
+                      height: 24,
+                      width: 24,
                     ),
                     infoTitle: 'Score',
                     infoValue: user.points.toString(),

@@ -34,7 +34,7 @@ class UserInfoCard extends StatelessWidget {
                 color: infoThemeColor,
                 shape: BoxShape.circle,
               ),
-              child: infoIcon,
+              child: Center(child: infoIcon),
             ),
             const SizedBox(width: 10),
             Column(
@@ -49,8 +49,8 @@ class UserInfoCard extends StatelessWidget {
                 Text(
                   infoValue,
                   style: const TextStyle(
-                    fontSize: 18,
                     fontWeight: FontWeight.w600,
+                    fontSize: 18,
                   ),
                 ),
               ],

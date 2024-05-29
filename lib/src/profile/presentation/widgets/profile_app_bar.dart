@@ -2,8 +2,13 @@ import 'dart:async';
 
 import 'package:education_app/core/common/widgets/popup_item.dart';
 import 'package:education_app/core/extensions/context_extension.dart';
+import 'package:education_app/core/res/colours.dart';
+import 'package:education_app/core/services/injection_container.dart';
+import 'package:education_app/src/auth/presentation/bloc/auth_bloc.dart';
+import 'package:education_app/src/profile/presentation/views/edit_profile_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
 
 class ProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -21,23 +26,34 @@ class ProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: [
         PopupMenuButton(
+          offset: const Offset(0, 50),
+          surfaceTintColor: Colors.white,
+          icon: const Icon(Icons.more_horiz),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
           itemBuilder: (_) => [
             PopupMenuItem<void>(
               child: const PopupItem(
                 title: 'Edit Profile',
                 icon: Icon(
-                  IconlyLight.edit,
-                  color: Colors.black,
+                  Icons.edit_outlined,
+                  color: Colours.neutralTextColour,
                 ),
               ),
-              onTap: () => context.push(const Placeholder()),
+              onTap: () => context.push(
+                BlocProvider(
+                  create: (_) => sl<AuthBloc>(),
+                  child: const EditProfileView(),
+                ),
+              ),
             ),
             const PopupMenuItem<void>(
               child: PopupItem(
                 title: 'Notification',
                 icon: Icon(
                   IconlyLight.notification,
-                  color: Colors.black,
+                  color: Colours.neutralTextColour,
                 ),
               ),
             ),
@@ -46,7 +62,7 @@ class ProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
                 title: 'Help',
                 icon: Icon(
                   Icons.help_outline_outlined,
-                  color: Colors.black,
+                  color: Colours.neutralTextColour,
                 ),
               ),
             ),
@@ -64,7 +80,7 @@ class ProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
               child: const PopupItem(
                 title: 'Logout',
                 icon: Icon(
-                  IconlyLight.logout,
+                  Icons.logout_rounded,
                   color: Colors.black,
                 ),
               ),
@@ -80,12 +96,6 @@ class ProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
               },
             ),
           ],
-          offset: const Offset(0, 50),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          icon: const Icon(Icons.more_horiz),
-          surfaceTintColor: Colors.white,
         ),
       ],
     );
