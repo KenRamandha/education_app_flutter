@@ -38,4 +38,3 @@ class EditProfileFormField extends StatelessWidget {
     );
   }
 }
-
