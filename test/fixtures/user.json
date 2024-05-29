@@ -1,12 +1,12 @@
 {
     "uid": "",
     "email": "",
-    "photoProfile": null,
+    "profilePic": null,
     "bio": null,
     "points": 0,
     "fullName": "",
     "groupIds": [],
-    "enrollCoursesIds": [],
+    "enrolledCourseIds": [],
     "following": [],
     "followers": []
-}
+  }

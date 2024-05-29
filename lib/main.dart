@@ -1,3 +1,4 @@
+import 'package:education_app/core/common/app/providers/course_of_the_day_notifier.dart';
 import 'package:education_app/core/common/app/providers/user_provider.dart';
 import 'package:education_app/core/res/colours.dart';
 import 'package:education_app/core/res/fonts.dart';
@@ -27,28 +28,22 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (_) => UserProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => DashboardController(),
-        ),
+        ChangeNotifierProvider(create: (_) => UserProvider()),
+        ChangeNotifierProvider(create: (_) => DashboardController()),
+        ChangeNotifierProvider(create: (_) => CourseOfTheDayNotofier()),
       ],
-      child: ChangeNotifierProvider(
-        create: (_) => UserProvider(),
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Education Apps',
-          theme: ThemeData(
-            useMaterial3: true,
-            visualDensity: VisualDensity.adaptivePlatformDensity,
-            fontFamily: Fonts.poppins,
-            appBarTheme: const AppBarTheme(color: Colors.transparent),
-            colorScheme:
-                ColorScheme.fromSwatch(accentColor: Colours.primaryColour),
-          ),
-          onGenerateRoute: generateRoute,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Education Apps',
+        theme: ThemeData(
+          useMaterial3: true,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          fontFamily: Fonts.poppins,
+          appBarTheme: const AppBarTheme(color: Colors.transparent),
+          colorScheme:
+              ColorScheme.fromSwatch(accentColor: Colours.primaryColour),
         ),
+        onGenerateRoute: generateRoute,
       ),
     );
   }
