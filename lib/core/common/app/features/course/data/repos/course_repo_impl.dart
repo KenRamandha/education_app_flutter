@@ -24,7 +24,7 @@ class CourseRepoImpl implements CourseRepo {
   @override
   ResultFuture<List<Course>> getCourse() async {
     try {
-      final courses = await _remoteDataSrc.getCourse();
+      final courses = await _remoteDataSrc.getCourses();
       return Right(courses);
     } on ServerException catch (e) {
       return Left(ServerFailure.fromException(e));
