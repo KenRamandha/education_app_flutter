@@ -7,4 +7,6 @@ extension StringExtension on String {
     userName = '${userName[0]}****${userName[userName.length - 1]}';
     return '$userName@$domain';
   }
+
+  
 }
