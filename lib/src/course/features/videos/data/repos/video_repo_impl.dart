@@ -1,4 +1,3 @@
-
 import 'package:dartz/dartz.dart';
 import 'package:education_app/core/errors/exceptions.dart';
 import 'package:education_app/core/errors/failures.dart';
@@ -8,7 +7,6 @@ import 'package:education_app/src/course/features/videos/domain/entities/video.d
 import 'package:education_app/src/course/features/videos/domain/repos/video_repo.dart';
 
 class VideoRepoImpl implements VideoRepo {
-
   const VideoRepoImpl(this._remoteDataSrc);
 
   final VideoRemoteDataSrc _remoteDataSrc;
@@ -25,7 +23,11 @@ class VideoRepoImpl implements VideoRepo {
 
   @override
   ResultFuture<List<Video>> getVideos(String courseId) async {
-    throw UnimplementedError();
+    try {
+      final result = await _remoteDataSrc.getVideos(courseId);
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure.fromException(e));
+    }
   }
-
 }
