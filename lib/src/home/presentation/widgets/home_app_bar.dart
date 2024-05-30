@@ -18,6 +18,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           icon: const Icon(Icons.search),
         ),
         const Icon(IconlyLight.notification),
+        const SizedBox(width: 10),
         Consumer<UserProvider>(
           builder: (_, provider, __) {
             return Padding(

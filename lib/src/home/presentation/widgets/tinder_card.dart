@@ -1,6 +1,5 @@
 // ignore_for_file: lines_longer_than_80_chars
 import 'package:education_app/core/extensions/context_extension.dart';
-import 'package:education_app/core/res/media_res.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 
@@ -33,8 +32,8 @@ class TinderCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.15),
-            offset: const Offset(0, 5),
+            color: Colors.black.withOpacity(0.1),
+            offset: const Offset(0, 2),
             blurRadius: 10,
           ),
         ],
